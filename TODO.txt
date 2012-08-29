@@ -1,0 +1,7 @@
+These are a few of the things we're hoping to work on:
+ * Look into using sqlite (Spatialite) for dev
+ * Easy configuration of ports and default settings
+ * Whoosh instead of solr
+ * Better documentation
+ * Loading data from a dump (import of Mediawiki viget.org)
+ 

@@ -1,0 +1,31 @@
+Ubuntu 12.04
+============
+
+For Development
+---------------
+
+sudo apt-get install git python-dev python-virtualenv libxml2-dev libxslt1-dev libjpeg62 libjpeg-dev libfreetype6 libfreetype6-dev zlib1g-dev gdal-bin postgresql-9.1-postgis proj
+
+Fix missing symlinks on 64bit Ubuntu:
+    ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib
+    ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
+    ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
+
+git clone https://github.com/friendlycode/localwiki.git viget-lw
+cd viget-lw
+make install_dev
+make setup_all
+make run_all
+
+Notes:
+------
+
+Solr will be running at http://localhost:8080/solr/admin/
+To shut down solr: `make stop_solr`
+
+
+For Production
+--------------
+
+sudo apt-get install git python-dev python-virtualenv libxml2-dev libxslt1-dev libjpeg62 libjpeg-dev libfreetype6 libfreetype6-dev zlib1g-dev gdal-bin postgresql-9.1-postgis proj
+

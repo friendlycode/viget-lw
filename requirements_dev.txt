@@ -1,0 +1,7 @@
+Django==1.3
+PIL==1.1.7
+South==0.7.4
+-e git://github.com/friendlycode/localwiki.git@6d4c85c7189a9e1ea8bced43016cc188c27360d6#egg=localwiki-dev
+lxml==3.0alpha2
+psycopg2==2.4.5
+pysolr==2.1.0-beta
