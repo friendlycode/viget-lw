@@ -11,7 +11,7 @@ Fix missing symlinks on 64bit Ubuntu:
     ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
     ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
 
-git clone https://github.com/friendlycode/localwiki.git viget-lw
+git clone https://github.com/friendlycode/viget-lw.git
 cd viget-lw
 make install_dev
 make setup_all
