@@ -1,8 +1,8 @@
 WD := $(shell pwd)
 SCRIPTS := $(WD)/scripts
-SOLR := $(WD)/solr/example/start.jar
 PY := venv/bin/python
 PIP := venv/bin/pip
+LOCALWIKI_MANAGE := venv/bin/localwiki-manage
 
 
 # Installation
@@ -16,7 +16,7 @@ setup_all: start_solr setup_localwiki
 
 .PHONY: setup_localwiki
 setup_localwiki:
-	$(PY) localwiki-manage setup_all 
+	$(LOCALWIKI_MANAGE) setup_all 
 
 
 # Run
@@ -25,7 +25,7 @@ run_server: start_solr run_localwiki
 
 .PHONY: run_localwiki
 run_localwiki:
-	$(PY) localwiki-manage runserver
+	$(LOCALWIKI_MANAGE) runserver
 
 
 # Data
