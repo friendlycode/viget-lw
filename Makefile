@@ -16,7 +16,7 @@ setup_all: start_solr setup_localwiki
 
 .PHONY: setup_localwiki
 setup_localwiki:
-	localwiki-manage setup_all 
+	$(PY) localwiki-manage setup_all 
 
 
 # Run
@@ -25,7 +25,7 @@ run_server: start_solr run_localwiki
 
 .PHONY: run_localwiki
 run_localwiki:
-	localwiki-manage runserver
+	$(PY) localwiki-manage runserver
 
 
 # Data
