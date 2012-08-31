@@ -4,10 +4,14 @@ changes. The idea is to make the installation and setup of a localwiki
 development environment easy and repeatable.
 
 Notable changes from the localwiki dev install docs are:
- * Uses a user-controlable solr instead of a system service
- * All install and setup commands are available via make
- * Clean (teardown) commands are also available via make
+ * Uses a user-installed and controllable solr instance instead of a system service
+ * All install, setup, and clean (teardown) commands are available via make
+
+Some things to be aware of:
+ * Sometimes solr does not shut down after `make reset_dev`. You can manually shut it down with `make stop_solr` afterwards.
+ * The postgis_template table in Postgres is installed with the postgresql-9.1-postgis package and cannot be deleted. You may see an error about this when using `make reset_localwiki` but it shouldn't be a problem.
 
 The INSTALL.txt file has the instructions for getting you started.
-TODO.txt will give you an idea of where we'll be taking this.
+
+TODO.txt will give you an idea of where we hope to take this.
 

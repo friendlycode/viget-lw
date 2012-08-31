@@ -1,0 +1,1 @@
+-e git://github.com/friendlycode/localwiki-importers.git#egg=localwiki-importers

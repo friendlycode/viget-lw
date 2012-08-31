@@ -2,9 +2,8 @@ These are a few of the things we're hoping to work on:
  * Get it working on OSX
  * Loading data from a dump (import of Mediawiki viget.org)
  * Better documentation
- * Easy configuration of ports and default settings
+ * Configuration of ports (solr/haystack, dev server)
+ * Configuration of default settings
  * Look into using sqlite (Spatialite) for dev
  * Whoosh instead of solr
-
-
  
