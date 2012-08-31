@@ -20,7 +20,12 @@ SOLR_DOWNLOAD=http://mirror.metrocast.net/apache/lucene/solr/$(SOLR_VERSION)/$(S
 
 # Installation (Downloads, venv creation, venv initilization)
 .PHONY: install_dev
-install_dev: create_venv download_solr setup_venv_dev
+install_dev: install_system_packages create_venv download_solr setup_venv_dev
+
+.PHONY: install_system_packages
+install_system_packages:
+	sudo apt-get update
+	cat dep-pkg-list | xargs sudo apt-get -y install
 
 
 # Setup

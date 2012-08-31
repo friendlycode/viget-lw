@@ -1,0 +1,12 @@
+python-dev
+python-virtualenv
+libxml2-dev
+libxslt1-dev
+libjpeg62
+libjpeg-dev
+libfreetype6
+libfreetype6-dev
+zlib1g-dev
+gdal-bin
+postgresql-9.1-postgis
+proj
