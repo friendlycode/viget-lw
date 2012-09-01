@@ -116,12 +116,12 @@ install_solr:
 
 .PHONY: start_solr
 start_solr:
-	if ! lsof -i :8080; then \
-	echo Starting Solr; \
-	cd $(SOLR_DIR); java -Djetty.port=8080 -jar $(SOLR_DIR)/start.jar & \
+	if ! lsof -i :$(SOLR_PORT); then \
+	echo Starting Solr on port $(SOLR_PORT); \
+	cd $(SOLR_DIR); java -Djetty.port=$(SOLR_PORT) -jar $(SOLR_DIR)/start.jar & \
 	sleep 10; \
 	else \
-	echo Solr is already running on port 8080; \
+	echo Solr is already running on port $(SOLR_PORT); \
 	fi
 
 .PHONY: stop_solr
