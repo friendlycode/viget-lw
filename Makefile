@@ -148,6 +148,10 @@ install_importers:
 	$(PIP) install --upgrade --force-reinstall -r requirements_importers.txt
 	sed -ie 's/LOCAL_INSTALLED_APPS = ()/LOCAL_INSTALLED_APPS = ("importers",)/g' $(LOCALWIKI_SETTINGS)
 
+.PHONY: run_importer_mediawiki
+run_importer_mediawiki: start_solr
+	$(LOCALWIKI_MANAGE) import_mediawiki
+
 
 # Cleaning
 .PHONY: clean_all
