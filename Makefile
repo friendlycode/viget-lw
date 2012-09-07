@@ -160,6 +160,10 @@ install_importers:
 run_importer_mediawiki: start_solr
 	$(LOCALWIKI_MANAGE) import_mediawiki
 
+.PHONY: run_post_process_mapdata
+run_post_process_mapdata:
+	$(LOCALWIKI_MANAGE) post_process_mapdata
+
 
 # Cleaning
 .PHONY: clean_all
