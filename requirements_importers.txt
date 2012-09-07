@@ -1,1 +1,2 @@
--e git://github.com/friendlycode/localwiki-importers.git#egg=localwiki-importers
+#-e git://github.com/friendlycode/localwiki-importers.git#egg=localwiki-importers
+/home/brousch/Projects/localwiki-importers/dist/localwiki-importers-0.1.tar.gz

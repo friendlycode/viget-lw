@@ -20,7 +20,7 @@ SOLR_DOWNLOAD=http://mirror.metrocast.net/apache/lucene/solr/$(SOLR_VERSION)/$(S
 
 # Installation (Downloads, venv creation, venv initilization)
 .PHONY: install_dev
-install_dev: install_system_packages create_venv download_solr setup_venv_dev
+install_dev: install_system_packages create_venv download_solr setup_venv_dev apply_django_postgis_adapter_2_patch
 
 .PHONY: install_system_packages
 install_system_packages:
@@ -101,6 +101,14 @@ clean_venv:
 reset_venv: clean_venv create_venv setup_venv_dev
 
 
+# Patches to fix various things
+# Fixes https://code.djangoproject.com/ticket/16778
+.PHONY: apply_django_postgis_adapter_2_patch
+apply_django_postgis_adapter_2_patch:
+	wget -O $(CACHE_DIR)/postgis-adapter-2.patch https://code.djangoproject.com/raw-attachment/ticket/16778/postgis-adapter-2.patch
+	patch $(VENV)/lib/python2.7/site-packages/django/contrib/gis/db/backends/postgis/adapter.py $(CACHE_DIR)/postgis-adapter-2.patch
+
+
 # Solr
 .PHONY: download_solr
 download_solr: create_cache
@@ -144,7 +152,7 @@ reset_solr: clean_solr_data install_solr
 
 # Importers
 .PHONY: install_importers
-install_importers:
+install_importers: 
 	$(PIP) install --upgrade --force-reinstall -r requirements_importers.txt
 	sed -ie 's/LOCAL_INSTALLED_APPS = ()/LOCAL_INSTALLED_APPS = ("importers",)/g' $(LOCALWIKI_SETTINGS)
 
