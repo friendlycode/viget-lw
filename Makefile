@@ -20,7 +20,7 @@ SOLR_DOWNLOAD=http://mirror.metrocast.net/apache/lucene/solr/$(SOLR_VERSION)/$(S
 
 # Installation (Downloads, venv creation, venv initilization)
 .PHONY: install_dev
-install_dev: install_system_packages create_venv download_solr setup_venv_dev apply_django_postgis_adapter_2_patch
+install_dev: create_venv download_solr setup_venv_dev apply_django_postgis_adapter_2_patch
 
 .PHONY: install_system_packages
 install_system_packages:
