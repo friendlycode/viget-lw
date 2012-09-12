@@ -8,6 +8,8 @@ PIP := $(VENV)/bin/pip
 LOCALWIKI_INSTANCE := $(VENV)/share/localwiki
 LOCALWIKI_SETTINGS := $(LOCALWIKI_INSTANCE)/conf/localsettings.py
 LOCALWIKI_MANAGE := $(VENV)/bin/localwiki-manage
+DATABASE_NAME := localwiki
+DATABASE_USER := localwiki
 
 # solr variables
 SOLR_DIR := $(WD)/solr
@@ -77,11 +79,11 @@ clean_database: clean_database_db clean_database_user
 
 .PHONY: clean_database_db
 clean_database_db:
-	psql -h localhost -U postgres -c "DROP DATABASE IF EXISTS localwiki"
+	psql -h localhost -U postgres -c "DROP DATABASE IF EXISTS $(DATABASE_NAME)"
 
 .PHONY: clean_database_user
 clean_database_user:
-	psql -h localhost -U postgres -c "DROP USER IF EXISTS  localwiki"
+	psql -h localhost -U postgres -c "DROP USER IF EXISTS $(DATABASE_USER)"
 
 
 # Virtualenv
