@@ -93,6 +93,7 @@ create_venv:
 
 .PHONY: setup_venv_dev
 setup_venv_dev:
+        source $(VENV)/bin/activate
 	$(PIP) install -r requirements_dev.txt
 
 .PHONY: clean_venv
