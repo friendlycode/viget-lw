@@ -1,5 +1,6 @@
 WD := $(shell pwd)
-CACHE_DIR := $(WD)/cache
+#CACHE_DIR := $(WD)/cache
+CACHE_DIR := /vagrant/make_cache
 VENV := $(WD)/venv
 PY := $(VENV)/bin/python
 PIP := $(VENV)/bin/pip
@@ -24,10 +25,17 @@ SOLR_DOWNLOAD=http://mirror.metrocast.net/apache/lucene/solr/$(SOLR_VERSION)/$(S
 .PHONY: install_dev
 install_dev: create_venv download_solr setup_venv_dev apply_django_postgis_adapter_2_patch
 
+.PHONY: install_from_scratch
+install_from_scratch: install_system_packages install_dev setup_dev
+
+
 .PHONY: install_system_packages
 install_system_packages:
 	sudo apt-get update
 	cat dep-pkg-list | xargs sudo apt-get -y install
+	ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib
+	ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib
+	ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib
 
 
 # Setup
@@ -41,7 +49,18 @@ reset_dev: reset_solr reset_localwiki_dev
 # localwiki
 .PHONY: setup_localwiki
 setup_localwiki:
-	$(LOCALWIKI_MANAGE) setup_all
+	cd $(VENV)/src/localwiki; $(PY) setup.py install
+	sed -i 's/cloudmade_api_key = raw_input().strip()/cloudmade_api_key = 06c005818e31487cb270b0bdfc71e115/' \
+	    /home/vagrant/viget-lw/venv/src/localwiki/sapling/utils/management/commands/init_settings.py
+	###########################################################
+	#  hack to have a tty                                     
+	#  in a separate terminal on your host computer, do this: 
+	#  cd [folder with vagrant file]       			  
+	#  vagrant ssh						  
+	#  sudo screen -r installer				  
+	#  Then follow prompts there			  	  
+	###########################################################
+	screen -S isntaller -D -m $(LOCALWIKI_MANAGE) setup_all     
 
 .PHONY: setup_localwiki_dev
 setup_localwiki_dev: start_solr setup_localwiki stop_solr
@@ -60,7 +79,7 @@ run_server_dev: start_solr run_localwiki
 
 .PHONY: run_localwiki
 run_localwiki:
-	$(LOCALWIKI_MANAGE) runserver
+	$(LOCALWIKI_MANAGE) runserver 0.0.0.0:8000
 
 
 # Cache
@@ -107,14 +126,15 @@ reset_venv: clean_venv create_venv setup_venv_dev
 # Fixes https://code.djangoproject.com/ticket/16778
 .PHONY: apply_django_postgis_adapter_2_patch
 apply_django_postgis_adapter_2_patch:
-	wget -O $(CACHE_DIR)/postgis-adapter-2.patch https://code.djangoproject.com/raw-attachment/ticket/16778/postgis-adapter-2.patch
+	ls $(CACHE_DIR)/postgis-adapter-2.patch || wget -O $(CACHE_DIR)/postgis-adapter-2.patch https://code.djangoproject.com/raw-attachment/ticket/16778/postgis-adapter-2.patch
 	patch $(VENV)/lib/python2.7/site-packages/django/contrib/gis/db/backends/postgis/adapter.py $(CACHE_DIR)/postgis-adapter-2.patch
 
 
 # Solr
 .PHONY: download_solr
 download_solr: create_cache
-	wget -O $(CACHE_DIR)/$(SOLR_ZIP) $(SOLR_DOWNLOAD)
+	ls $(CACHE_DIR)/$(SOLR_ZIP) || wget -O $(CACHE_DIR)/$(SOLR_ZIP) $(SOLR_DOWNLOAD)
+	rm -r /vagrant/make_cache/apache-solr-3.6.1/ || echo "not there"
 	unzip -q $(CACHE_DIR)/$(SOLR_ZIP) -d $(CACHE_DIR)/
 
 .PHONY: install_solr

@@ -1,4 +1,7 @@
+unzip
+git
 openjdk-7-jre
+openjdk-7-jdk
 python-dev
 python-virtualenv
 libxml2-dev
@@ -10,4 +13,7 @@ libfreetype6-dev
 zlib1g-dev
 gdal-bin
 postgresql-9.1-postgis
+postgresql-server-dev-9.1
+libpq-dev
 proj
+screen
