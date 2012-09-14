@@ -50,8 +50,6 @@ reset_dev: reset_solr reset_localwiki_dev
 .PHONY: setup_localwiki
 setup_localwiki:
 	cd $(VENV)/src/localwiki; $(PY) setup.py install
-	sed -i 's/cloudmade_api_key = raw_input().strip()/cloudmade_api_key = 06c005818e31487cb270b0bdfc71e115/' \
-	    /home/vagrant/viget-lw/venv/src/localwiki/sapling/utils/management/commands/init_settings.py
 	###########################################################
 	#  hack to have a tty                                     
 	#  in a separate terminal on your host computer, do this: 
@@ -60,7 +58,7 @@ setup_localwiki:
 	#  sudo screen -r installer				  
 	#  Then follow prompts there			  	  
 	###########################################################
-	screen -S isntaller -D -m $(LOCALWIKI_MANAGE) setup_all     
+	screen -S installer -D -m $(LOCALWIKI_MANAGE) setup_all
 
 .PHONY: setup_localwiki_dev
 setup_localwiki_dev: start_solr setup_localwiki stop_solr
