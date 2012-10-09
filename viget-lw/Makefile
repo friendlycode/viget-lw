@@ -96,11 +96,11 @@ clean_database: clean_database_db clean_database_user
 
 .PHONY: clean_database_db
 clean_database_db:
-	psql -h localhost -U postgres -c "DROP DATABASE IF EXISTS $(DATABASE_NAME)"
+	sudo psql "DROP DATABASE IF EXISTS $(DATABASE_NAME)"
 
 .PHONY: clean_database_user
 clean_database_user:
-	psql -h localhost -U postgres -c "DROP USER IF EXISTS $(DATABASE_USER)"
+	sudo psql -c "DROP USER IF EXISTS $(DATABASE_USER)"
 
 
 # Virtualenv
