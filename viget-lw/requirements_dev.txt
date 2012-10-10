@@ -1,4 +1,4 @@
 -e git://github.com/localwiki/localwiki.git#egg=localwiki-dev
 PIL==1.1.7
-lxml==3.0alpha2
+lxml
 psycopg2==2.4.5
